@@ -3,234 +3,376 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>โปรแกรมโรงพยาบาลนพรัตนราชธานี</title>
+    <title>ระบบบริหารจัดการงานเภสัชกรรม - โรงพยาบาลนพรัตนราชธานี</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        body {
-            box-sizing: border-box;
-            font-family: 'Sarabun', sans-serif;
-        }
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-        }
-        .card-shadow {
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .button-hover {
-            transition: all 0.3s ease;
-        }
-        .button-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        }
-        .section-title {
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
+        body { font-family: 'Sarabun', sans-serif; background-color: #f8fafc; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="min-h-screen gradient-bg">
-    <div class="container mx-auto px-4 py-8">
-        <!-- Header -->
-        <div class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
-                🏥 โปรแกรมโรงพยาบาลนพรัตนราชธานี
-            </h1>
-            <p class="text-xl text-white/90">ระบบจัดการงานเภสัชกรรม</p>
-        </div>
+<body class="min-h-screen flex flex-col text-slate-800">
 
-        <!-- โปรแกรมใช้งาน Section -->
-        <div class="mb-16">
-            <h2 class="text-3xl font-bold text-center mb-8 section-title bg-white/20 backdrop-blur-sm rounded-lg py-4 text-white">
-                💻 โปรแกรมใช้งาน
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <!-- Row 1 -->
-                <button onclick="openProgram('https://borrownpr.vercel.app/')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">💊</div>
-                    <div class="text-lg font-semibold text-gray-800">โปรแกรมยืมยา/คืนยา</div>
-                </button>
+    <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center"> 
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.reload()">
+                    <div class="w-10 h-10 bg-teal-600 rounded-xl flex items-center justify-center text-white shadow-sm hover:rotate-12 transition-transform duration-300">
+                        <i data-lucide="activity" width="22"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-slate-800 font-bold text-lg leading-none">Pharmacy Portal</span>
+                        <span class="text-teal-600 text-xs font-medium">รพ.นพรัตนราชธานี</span>
+                    </div>
+                </div>
 
-                <button onclick="openProgram('https://calender6.vercel.app/')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">📅</div>
-                    <div class="text-lg font-semibold text-gray-800">โปรแกรมลงตารางเวร</div>
-                </button>
+                <div class="hidden md:flex flex-1 max-w-md mx-8">
+                    <div class="relative w-full">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                            <i data-lucide="search" width="18"></i>
+                        </span>
+                        <input type="text" id="searchInput" placeholder="ค้นหาโปรแกรม, เอกสาร, หรือเบอร์โทร..." class="w-full bg-slate-50 border border-slate-200 py-2 pl-10 pr-4 rounded-lg text-sm focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all shadow-sm">
+                    </div>
+                </div>
 
-                <button onclick="openProgram('https://tpnpharnpr.vercel.app/')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">🧮</div>
-                    <div class="text-lg font-semibold text-gray-800">โปรแกรมยาเตรียมผลิตเฉพาะราย</div>
-                </button>
-
-                <button onclick="openProgram('https://pan-npr-calculation.vercel.app/')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">🏥</div>
-                    <div class="text-lg font-semibold text-gray-800">โปรแกรมคำนวณทางเภสัชกรรม</div>
-                </button>
-
-                <!-- Row 2 -->
-                <button onclick="openProgram('https://holidayopdnpr1.vercel.app/')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">📅</div>
-                    <div class="text-lg font-semibold text-gray-800">โปรแกรมลงวันลาเภสัชกร</div>
-                </button>
-
-                <button onclick="showComingSoon('รอติดตามเร็วๆ นี้')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">🔍</div>
-                    <div class="text-lg font-semibold text-gray-800">รอติดตาม</div>
-                </button>
-
-                <button onclick="showComingSoon('รอติดตามเร็วๆ นี้')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">🔍</div>
-                    <div class="text-lg font-semibold text-gray-800">รอติดตาม</div>
-                </button>
-
-                <button onclick="showComingSoon('รอติดตามเร็วๆ นี้')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">🔍</div>
-                    <div class="text-lg font-semibold text-gray-800">รอติดตาม</div>
-                </button>
-
-                <!-- Row 3 -->
-                <button onclick="showComingSoon('รอติดตามเร็วๆ นี้')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">📊</div>
-                    <div class="text-lg font-semibold text-gray-800">รอติดตาม</div>
-                </button>
-
-                <button onclick="showComingSoon('รอติดตามเร็วๆ นี้')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">📊</div>
-                    <div class="text-lg font-semibold text-gray-800">รอติดตาม</div>
-                </button>
-
-                <button onclick="showComingSoon('รอติดตามเร็วๆ นี้')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">📊</div>
-                    <div class="text-lg font-semibold text-gray-800">รอติดตาม</div>
-                </button>
-
-                <button onclick="showComingSoon('รอติดตามเร็วๆ นี้')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">📊</div>
-                    <div class="text-lg font-semibold text-gray-800">รอติดตาม</div>
-                </button>
+                <div class="flex items-center gap-4 text-slate-600 text-sm font-medium">
+                    <a href="#" class="hidden md:flex items-center gap-2 hover:text-teal-700 transition-colors"><i data-lucide="file-text" width="16"></i> คู่มือ</a>
+                    <div class="h-6 w-px bg-slate-200 hidden md:block"></div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-teal-50 text-teal-600 flex items-center justify-center border border-teal-100">
+                            <i data-lucide="user" width="16"></i>
+                        </div>
+                        <span class="hidden md:inline">เจ้าหน้าที่</span>
+                    </div>
+                </div>
             </div>
         </div>
+    </nav>
 
-        <!-- เอกสารทางเภสัชกรรม Section -->
-        <div class="mb-12">
-            <h2 class="text-3xl font-bold text-center mb-8 section-title bg-white/20 backdrop-blur-sm rounded-lg py-4 text-white">
-                📚 เอกสารทางเภสัชกรรม
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <button onclick="openProgram('https://pharmacy-database-1.vercel.app/')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">📋</div>
-                    <div class="text-lg font-semibold text-gray-800">บัญชียาหลักแห่งชาติ</div>
-                </button>
-
-                <button onclick="showComingSoon('บัญชียา จ.2')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">📋</div>
-                    <div class="text-lg font-semibold text-gray-800">บัญชียา จ.2</div>
-                </button>
-
-                <button onclick="showComingSoon('เอกสาร DUE')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">📄</div>
-                    <div class="text-lg font-semibold text-gray-800">เอกสาร DUE</div>
-                </button>
-
-                <button onclick="openProgram('https://pharmacy-database-4.vercel.app/')"  
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">📄</div>
-                    <div class="text-lg font-semibold text-gray-800">เอกสารทางเภสัชกรรมอื่นๆ</div>
-                </button>
-
-                <button onclick="showComingSoon('รอติดตามเร็วๆ นี้')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">📖</div>
-                    <div class="text-lg font-semibold text-gray-800">รอติดตาม</div>
-                </button>
-
-                <button onclick="showComingSoon('รอติดตามเร็วๆ นี้')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">📖</div>
-                    <div class="text-lg font-semibold text-gray-800">รอติดตาม</div>
-                </button>
-
-                <button onclick="showComingSoon('รอติดตามเร็วๆ นี้')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">📑</div>
-                    <div class="text-lg font-semibold text-gray-800">รอติดตาม</div>
-                </button>
-
-                <button onclick="showComingSoon('รอติดตามเร็วๆ นี้')" 
-                        class="bg-white rounded-xl p-6 card-shadow button-hover text-center min-h-[140px] flex flex-col justify-center">
-                    <div class="text-4xl mb-3">📑</div>
-                    <div class="text-lg font-semibold text-gray-800">รอติดตาม</div>
-                </button>
-            </div>
+    <div class="bg-gradient-to-r from-teal-800 to-teal-700 py-6 relative overflow-hidden shadow-inner">
+        <div class="absolute top-0 right-0 -mt-10 -mr-10 opacity-10 animate-pulse">
+            <i data-lucide="activity" width="200" height="200" class="text-white"></i>
         </div>
-
-        <!-- Footer -->
-        <div class="text-center text-white/80 mt-12">
-            <p class="text-lg">© 2025 กลุ่มงานเภสัชกรรมโรงพยาบาลนพรัตนราชธานี</p>
+        <div class="max-w-7xl mx-auto px-6 relative z-10 flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-white mb-1 tracking-tight">
+                    ศูนย์รวมข้อมูลกลุ่มงานเภสัชกรรม
+                </h1>
+                <p class="text-teal-100 text-sm font-light opacity-90">
+                    เข้าถึงระบบงานและฐานข้อมูลยา โรงพยาบาลนพรัตนราชธานี
+                </p>
+            </div>
+            <div class="hidden md:block text-right text-teal-50">
+                <div class="text-2xl font-bold font-mono tracking-wider" id="clock">00:00</div>
+                <div class="text-xs opacity-75" id="date">...</div>
+            </div>
         </div>
     </div>
 
-    <!-- Modal for Coming Soon -->
-    <div id="comingSoonModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center card-shadow">
-            <div class="text-6xl mb-4">🚧</div>
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">กำลังพัฒนา</h3>
-            <p id="modalText" class="text-gray-600 mb-6 text-lg"></p>
-            <button onclick="closeModal()" 
-                    class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300">
-                ตกลง
+    <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-8 flex flex-col lg:flex-row gap-8">
+        
+        <div class="flex-1">
+            <div id="appContainer" class="fade-in">
+                </div>
+            
+            <div id="noResults" class="hidden text-center py-12">
+                <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
+                    <i data-lucide="search-x" width="32"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-600">ไม่พบรายการที่ค้นหา</h3>
+            </div>
+        </div>
+
+        <aside class="lg:w-80 flex-shrink-0 space-y-6">
+            
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="bg-slate-50 px-4 py-3 border-b border-slate-100 flex justify-between items-center">
+                    <h3 class="font-bold text-slate-700 text-sm flex items-center gap-2">
+                        <i data-lucide="bell" width="16" class="text-orange-500"></i> ประกาศ / ข่าวสาร
+                    </h3>
+                    <a href="#" class="text-xs text-teal-600 hover:underline font-medium">ดูทั้งหมด</a>
+                </div>
+                <div id="newsContainer" class="divide-y divide-slate-50">
+                     </div>
+            </div>
+
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+                <h3 class="font-bold text-slate-700 text-sm mb-3">เว็บไซต์ภายนอก</h3>
+                <div class="space-y-2" id="linksContainer">
+                     </div>
+            </div>
+
+            <div class="bg-teal-50 rounded-xl p-4 border border-teal-100 text-center">
+                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm text-teal-600">
+                    <i data-lucide="headset" width="24"></i>
+                </div>
+                <h3 class="font-bold text-teal-800 text-sm">ต้องการความช่วยเหลือ?</h3>
+                <p class="text-xs text-teal-600 mb-3">ติดต่อ Admin หรือกลุ่มงานคอมพิวเตอร์</p>
+                <a href="tel:1300" class="block w-full bg-white text-teal-700 border border-teal-200 text-xs font-bold py-2 rounded-lg hover:bg-teal-600 hover:text-white transition-colors shadow-sm">
+                    โทร. 1300
+                </a>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-100 py-6 mt-auto">
+        <div class="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
+            <p>© 2026 กลุ่มงานเภสัชกรรม โรงพยาบาลนพรัตนราชธานี</p>
+        </div>
+    </footer>
+
+    <div id="universalModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        <div class="bg-white rounded-2xl p-6 max-w-md w-full text-center shadow-2xl relative transform transition-all scale-100 animate-in zoom-in-95 duration-200">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i data-lucide="x" width="24"></i>
             </button>
+            <div id="modalIcon" class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner"></div>
+            <h3 id="modalTitle" class="text-xl font-bold text-slate-800 mb-2">Title</h3>
+            <div id="modalContent" class="text-slate-500 mb-6 text-sm leading-relaxed max-h-[60vh] overflow-y-auto px-2"></div>
+            <div id="modalActions" class="flex gap-3 justify-center"></div>
         </div>
     </div>
 
     <script>
-        function openProgram(url) {
-            if (url) {
-                window.open(url, '_blank', 'noopener,noreferrer');
-            }
+        // ==========================================
+        // 🛠️ ส่วนตั้งค่าข้อมูล (แก้ไขตรงนี้ได้เลย) 🛠️
+        // ==========================================
+        
+        const CONFIG = {
+            // 1. รายการโปรแกรม (Applications)
+            // หมายเหตุ: ลบคำบรรยายภาษาอังกฤษออก (desc: "") ตามที่ขอ
+            apps: [
+                { name: "ระบบยืม-คืนยา", desc: "", icon: "pill", color: "blue", url: "https://borrownpr.vercel.app/" },
+                { name: "ลงตารางเวร", desc: "", icon: "calendar-days", color: "teal", url: "https://calender6.vercel.app/" },
+                { name: "ยาผลิตเฉพาะราย", desc: "", icon: "flask-conical", color: "purple", url: "https://tpnpharnpr.vercel.app/" },
+                { name: "คำนวณทางเภสัชกรรม", desc: "", icon: "calculator", color: "orange", url: "https://pan-npr-calculation.vercel.app/" },
+                { name: "ลงวันลาเภสัชกร", desc: "", icon: "plane-takeoff", color: "indigo", url: "https://holidayopdnpr1.vercel.app/" },
+                { name: "รายงานความคลาดเคลื่อน", desc: "", icon: "wrench", color: "slate", url: "", status: "coming_soon" }
+            ],
+
+            // 2. ฐานข้อมูล (Databases)
+            databases: [
+                { name: "บัญชียาหลักแห่งชาติ", icon: "database", color: "emerald", url: "https://pharmacy-database-1.vercel.app/" },
+                
+                // เพิ่มบัญชียา จ.2 ตรงนี้ครับ
+                { name: "บัญชียา จ.2", icon: "file-warning", color: "rose", url: "", status: "coming_soon" },
+                
+                { name: "เอกสาร DUE", icon: "file-check", color: "amber", url: "", status: "coming_soon" },
+                { name: "เอกสารทางเภสัชกรรมอื่นๆ", icon: "folder-search", color: "cyan", url: "https://pharmacy-database-4.vercel.app/" }
+            ],
+
+            // 3. ข่าวประชาสัมพันธ์ (News)
+            news: [
+                { 
+                    tag: "ด่วน", tagColor: "red", 
+                    title: "แจ้งกำหนดการลงตาราเวร ประจำเดือนมกราคม 2569", 
+                    date: "17 ม.ค. 69",
+                    details: "ขอให้เจ้าหน้าที่ทุกท่านลงตาราเวรภายในวันที่ 26 มกราคม 2569 เวลา 12.00 น. หากล่าช้าก็ไม่มีอะไรหรอก ทำเล่นๆ อิอิ",
+                    link: "" 
+                },
+                { 
+                    tag: "ทั่วไป", tagColor: "blue", 
+                    title: "แจ้งกำหนดการต่อใบประกอบเภสัชกร", 
+                    date: "17 ม.ค. 69",
+                    details: "เภสัชกรที่จบการศึกษาในปี 2564 อย่าลืมต่อใบประกอบวิชาชีพเภสัชกร เตือนตัวเอง อิอิ",
+                    link: ""
+                },
+                { 
+                    tag: "ยาใหม่", tagColor: "emerald", 
+                    title: "Update รายการยาเข้าใหม่", 
+                    date: "17 ม.ค. 69",
+                    details: "ไม่มีข้อมูล ทำไว้เล่นๆ อิอิ",
+                    link: ""
+                }
+            ],
+
+            // 4. ลิงก์ภายนอก
+            links: [
+                { name: "สำนักงานคณะกรรมการอาหารและยา", url: "https://www.fda.moph.go.th/" },
+                { name: "สภาเภสัชกรรม", url: "https://www.pharmacycouncil.org/" },
+                { name: "ศูนย์ข้อมูลยานพรัตนราชธานี", url: "https://nrh.nopparat.go.th/pharmacy/public/view/" }
+            ]
+        };
+
+        // ==========================================
+        // ⚙️ ระบบการทำงาน (System Logic) 
+        // ==========================================
+
+        function renderContent() {
+            const appContainer = document.getElementById('appContainer');
+            const newsContainer = document.getElementById('newsContainer');
+            const linksContainer = document.getElementById('linksContainer');
+
+            // 1. Render Apps & Databases
+            let html = `
+                <div class="mb-8 search-section">
+                    <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <i data-lucide="monitor-play" class="text-teal-600" width="20"></i> โปรแกรมหลัก
+                    </h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        ${CONFIG.apps.map(app => createAppCard(app)).join('')}
+                    </div>
+                </div>
+
+                <div class="search-section">
+                    <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <i data-lucide="book-open" class="text-teal-600" width="20"></i> ฐานข้อมูลและเอกสาร
+                    </h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        ${CONFIG.databases.map(db => createDbCard(db)).join('')}
+                    </div>
+                </div>
+            `;
+            appContainer.innerHTML = html;
+
+            // 2. Render News
+            newsContainer.innerHTML = CONFIG.news.map((item, index) => `
+                <div onclick="openNewsModal(${index})" class="p-3 news-item border-l-4 border-transparent hover:bg-slate-50 transition-all cursor-pointer group">
+                    <div class="flex justify-between items-start">
+                        <span class="bg-${item.tagColor}-100 text-${item.tagColor}-600 text-[10px] px-2 py-0.5 rounded-full font-bold mb-1 inline-block border border-${item.tagColor}-200">${item.tag}</span>
+                        <i data-lucide="chevron-right" width="14" class="text-slate-300 group-hover:text-teal-50 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <p class="text-sm text-slate-700 leading-snug group-hover:text-teal-700 font-medium">${item.title}</p>
+                    <span class="text-xs text-slate-400 mt-1 block">${item.date}</span>
+                </div>
+            `).join('');
+
+            // 3. Render Links
+            linksContainer.innerHTML = CONFIG.links.map(link => `
+                <a href="${link.url}" target="_blank" class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 text-slate-600 text-sm transition-colors border border-transparent hover:border-slate-100">
+                    <div class="w-6 h-6 bg-slate-100 rounded flex items-center justify-center text-slate-500"><i data-lucide="globe" width="14"></i></div>
+                    ${link.name}
+                </a>
+            `).join('');
+
+            lucide.createIcons();
         }
 
-        function showComingSoon(programName) {
-            const modal = document.getElementById('comingSoonModal');
-            const modalText = document.getElementById('modalText');
-            modalText.textContent = `${programName} กำลังอยู่ในระหว่างการพัฒนา จะเปิดให้บริการในเร็วๆ นี้`;
+        // Helper: Create App Card HTML
+        function createAppCard(app) {
+            const isComingSoon = app.status === 'coming_soon';
+            const action = isComingSoon ? `onclick="openModal('coming_soon', '${app.name}')"` : `onclick="window.open('${app.url}', '_blank')"`;
+            const bgClass = isComingSoon ? 'bg-slate-50 border-dashed border-slate-300' : 'bg-white border-slate-200 hover:border-teal-400 hover:shadow-md';
+            const iconBg = isComingSoon ? 'bg-slate-100 text-slate-400' : `bg-${app.color}-50 text-${app.color}-600`;
+            
+            // Note: Render logic updated to handle empty desc
+            return `
+                <button ${action} class="search-item group ${bgClass} p-4 rounded-xl shadow-sm border transition-all text-left flex items-center gap-4 relative overflow-hidden w-full">
+                    ${!isComingSoon ? `<div class="absolute right-0 top-0 w-16 h-16 bg-${app.color}-50 rounded-bl-full -mr-4 -mt-4 transition-colors group-hover:bg-${app.color}-100"></div>` : ''}
+                    <div class="w-10 h-10 ${iconBg} rounded-lg flex-shrink-0 flex items-center justify-center relative z-10">
+                        <i data-lucide="${app.icon}" width="20"></i>
+                    </div>
+                    <div class="relative z-10 overflow-hidden flex flex-col justify-center h-full">
+                        <span class="font-bold text-slate-700 group-hover:text-${app.color}-700 block truncate search-text">${app.name}</span>
+                        ${app.desc ? `<span class="text-xs text-slate-400 font-light truncate block">${app.desc}</span>` : ''}
+                    </div>
+                </button>
+            `;
+        }
+
+        // Helper: Create DB Card HTML
+        function createDbCard(db) {
+            const isComingSoon = db.status === 'coming_soon';
+            const action = isComingSoon ? `onclick="openModal('coming_soon', '${db.name}')"` : `onclick="window.open('${db.url}', '_blank')"`;
+            const colorClass = isComingSoon ? 'slate' : db.color;
+            
+            return `
+                <button ${action} class="search-item bg-white px-4 py-3 rounded-xl border border-slate-200 hover:border-teal-400 hover:shadow-sm flex items-center justify-between group transition-all w-full">
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <i data-lucide="${db.icon}" class="text-${colorClass}-500 flex-shrink-0" width="20"></i>
+                        <span class="text-slate-700 font-medium group-hover:text-${colorClass}-700 truncate search-text">${db.name}</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="text-slate-300 flex-shrink-0" width="16"></i>
+                </button>
+            `;
+        }
+
+        // --- Interactive Functions ---
+
+        document.getElementById('searchInput').addEventListener('keyup', function(e) {
+            const term = e.target.value.toLowerCase();
+            const items = document.querySelectorAll('.search-item');
+            let hasResults = false;
+
+            items.forEach(item => {
+                const text = item.querySelector('.search-text').textContent.toLowerCase();
+                if(text.includes(term)) {
+                    item.classList.remove('hidden');
+                    hasResults = true;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            document.querySelectorAll('.search-section').forEach(section => {
+                const visibleItems = section.querySelectorAll('.search-item:not(.hidden)');
+                section.style.display = visibleItems.length > 0 ? 'block' : 'none';
+            });
+
+            document.getElementById('noResults').classList.toggle('hidden', hasResults);
+        });
+
+        function openModal(type, title, content = '', link = '') {
+            const modal = document.getElementById('universalModal');
+            const mTitle = document.getElementById('modalTitle');
+            const mContent = document.getElementById('modalContent');
+            const mIcon = document.getElementById('modalIcon');
+            const mActions = document.getElementById('modalActions');
+
+            mTitle.innerText = title;
+            mContent.innerHTML = content;
+            mActions.innerHTML = '';
+
+            if (type === 'coming_soon') {
+                mIcon.innerHTML = `<i data-lucide="hard-hat" width="32" class="text-amber-500"></i>`;
+                mContent.innerText = 'ระบบนี้กำลังอยู่ระหว่างการปรับปรุงและพัฒนา จะเปิดให้ใช้งานได้เร็วๆ นี้';
+                mActions.innerHTML = `<button onclick="closeModal()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 rounded-xl font-bold transition-colors">รับทราบ</button>`;
+            } else if (type === 'news') {
+                mIcon.innerHTML = `<i data-lucide="bell-ring" width="32" class="text-teal-600"></i>`;
+                let btns = `<button onclick="closeModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 rounded-xl font-bold transition-colors">ปิด</button>`;
+                if(link) {
+                    btns += `<a href="${link}" target="_blank" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white py-2.5 rounded-xl font-bold transition-colors flex items-center justify-center gap-2">ดูรายละเอียด <i data-lucide="external-link" width="16"></i></a>`;
+                }
+                mActions.innerHTML = btns;
+            }
+
             modal.classList.remove('hidden');
             modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function openNewsModal(index) {
+            const item = CONFIG.news[index];
+            openModal('news', item.title, `<p class="mb-2 font-bold text-slate-800">${item.date}</p><p>${item.details}</p>`, item.link);
         }
 
         function closeModal() {
-            const modal = document.getElementById('comingSoonModal');
+            const modal = document.getElementById('universalModal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
         }
 
-        // Close modal when clicking outside
-        document.getElementById('comingSoonModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('date').innerText = now.toLocaleDateString('th-TH', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        }
 
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
+        renderContent();
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
+
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'984947b1b0207334',t:'MTc1ODc5MDI5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
